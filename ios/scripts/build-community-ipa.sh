@@ -65,8 +65,14 @@ xcodebuild archive \
   -destination 'generic/platform=iOS' \
   -archivePath "$ARCHIVE_PATH" \
   -derivedDataPath "$BUILD_ROOT/DerivedData" \
-  -xcconfig "$REPO_ROOT/ios/Config/Community.xcconfig" \
+  PRODUCT_BUNDLE_IDENTIFIER="io.github.lazarus931.cmux.community" \
+  PRODUCT_DISPLAY_NAME="cmux Community" \
   CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+  CMUX_CRASH_REPORTING_ENABLED=NO \
+  CMUX_IOS_AUTH_ENV=production \
+  CMUX_API_BASE_URL="https://cmux.com" \
+  CMUX_IROH_BROKER_BASE_URL="https://cmux.com" \
+  CMUX_IOS_URL_SCHEME="cmux-ios" \
   CODE_SIGNING_ALLOWED=NO \
   CODE_SIGNING_REQUIRED=NO \
   CODE_SIGN_IDENTITY=""
