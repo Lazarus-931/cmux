@@ -244,7 +244,6 @@ struct MobileSettingsView: View {
                         ))
                     }
                     .accessibilityIdentifier("MobileSettingsTaskComposer")
-
                 }
 
                 #if DEBUG
