@@ -59,6 +59,7 @@ BUILD_NUMBER="$(date -u +%Y%m%d%H%M%S)"
 ARCHIVE_PATH="$BUILD_ROOT/cmux-community.xcarchive"
 
 xcodebuild archive \
+  -jobs 2 \
   -workspace "$REPO_ROOT/ios/cmux.xcworkspace" \
   -scheme cmux-ios \
   -configuration Release \
@@ -73,6 +74,8 @@ xcodebuild archive \
   CMUX_API_BASE_URL="https://cmux.com" \
   CMUX_IROH_BROKER_BASE_URL="https://cmux.com" \
   CMUX_IOS_URL_SCHEME="cmux-ios" \
+  SWIFT_COMPILATION_MODE=incremental \
+  COMPILER_INDEX_STORE_ENABLE=NO \
   CODE_SIGNING_ALLOWED=NO \
   CODE_SIGNING_REQUIRED=NO \
   CODE_SIGN_IDENTITY=""
