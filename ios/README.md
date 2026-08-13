@@ -2,6 +2,9 @@
 
 SwiftUI iOS/iPadOS shell for the CMUXMobileCore production path.
 
+The unofficial fork distribution that does not depend on upstream paid
+TestFlight enrollment is documented in [COMMUNITY.md](COMMUNITY.md).
+
 Current phase:
 
 - Stack Auth sign-in gate with Apple, Google, email code, and a debug-only `42` shortcut

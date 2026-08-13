@@ -42,7 +42,7 @@ final class CmuxFeatureFlags {
     private static let proUpgradeUIDefault = false
     #endif
 
-    private static let mobileConnectButtonDefault = false
+    private static let mobileConnectButtonDefault = true
     private static let sidebarAccountButtonDefault = true
 
     #if DEBUG
@@ -189,10 +189,10 @@ final class CmuxFeatureFlags {
             ),
 
             // FLAG(key: mobile-connect-button-enabled-release, owner: lawrencecchen,
-            //      reviewBy: 2026-10-01, defaultWhenUnavailable: false)
+            //      reviewBy: 2026-10-01, defaultWhenUnavailable: true)
             // Shows the bottom-left sidebar iPhone button that opens the Tailscale
-            // Pairing workspace. It stays hidden until the remote flag or a
-            // local debug override enables it.
+            // Pairing workspace. The community fork keeps this entry point
+            // available regardless of the upstream distribution flag.
             CmuxFeatureFlagDefinition(
                 key: "mobile-connect-button-enabled-release",
                 title: String(localized: "featureFlags.mobileConnect.title", defaultValue: "Tailscale Pairing button"),
@@ -300,7 +300,7 @@ final class CmuxFeatureFlags {
     }
 
     var isMobileConnectButtonEnabled: Bool {
-        effectiveValue(for: Self.allFlags[1])
+        true
     }
 
     var isCloudVMUIEnabled: Bool {

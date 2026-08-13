@@ -186,8 +186,8 @@ struct PostHogAnalyticsPropertiesTests {
     }
 
     @MainActor
-    @Test("Tailscale Pairing button defaults hidden without a flag value")
-    func tailscalePairingButtonDefaultsHidden() throws {
+    @Test("Tailscale Pairing button defaults visible without a flag value")
+    func tailscalePairingButtonDefaultsVisible() throws {
         let suiteName = "cmux.feature.flags.mobile-connect.\(UUID().uuidString)"
         let defaults = try #require(UserDefaults(suiteName: suiteName))
         defer {
@@ -199,7 +199,29 @@ struct PostHogAnalyticsPropertiesTests {
             remoteFlagValueProvider: { _ in nil }
         )
 
-        #expect(!flags.isMobileConnectButtonEnabled)
+        #expect(flags.isMobileConnectButtonEnabled)
+    }
+
+    @MainActor
+    @Test("Tailscale Pairing button stays visible when the upstream flag is off")
+    func tailscalePairingButtonIgnoresUpstreamDisable() throws {
+        let flag = try #require(CmuxFeatureFlags.allFlags.first {
+            $0.key == "mobile-connect-button-enabled-release"
+        })
+        let suiteName = "cmux.feature.flags.mobile-connect.remote.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer {
+            defaults.removePersistentDomain(forName: suiteName)
+        }
+
+        let flags = CmuxFeatureFlags(
+            defaults: defaults,
+            remoteFlagValueProvider: { key in key == flag.key ? false : nil }
+        )
+        flags.applyLoadedFlags()
+
+        #expect(flags.remoteValue(for: flag) == false)
+        #expect(flags.isMobileConnectButtonEnabled)
     }
 
     @MainActor

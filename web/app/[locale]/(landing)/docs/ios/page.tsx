@@ -31,9 +31,9 @@ export default function IosPage() {
       <DocsHeading level={2} id="access">{t("accessTitle")}</DocsHeading>
       <p>
         {t.rich("accessDesc", {
-          foundersLink: (chunks) => (
+          communityLink: (chunks) => (
             <a
-              href="https://github.com/manaflow-ai/cmux#founders-edition"
+              href="https://github.com/Lazarus-931/cmux/releases"
               className={linkClass}
             >
               {chunks}
