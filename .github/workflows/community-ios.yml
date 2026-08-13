@@ -24,9 +24,9 @@ jobs:
       - name: Select Xcode
         run: |
           set -euo pipefail
-          echo "DEVELOPER_DIR=/Applications/Xcode_26.0.1.app/Contents/Developer" >> "$GITHUB_ENV"
-          export DEVELOPER_DIR=/Applications/Xcode_26.0.1.app/Contents/Developer
-          xcodebuild -version
+          ./scripts/select-ci-xcode.sh
+          DEVELOPER_DIR="$(sed -n 's/^DEVELOPER_DIR=//p' "$GITHUB_ENV" | tail -n 1)" \
+            xcrun --sdk iphoneos --show-sdk-path
 
       - name: Install Zig
         run: ./scripts/install-zig-ci.sh
